@@ -1,0 +1,202 @@
+% =========================================================
+% zadani.tex -- Domácí úkol: Taylorovy řady
+% Seminář IVT, 3. ročník gymnázia
+%
+% Kompilace: XeLaTeX
+%   latexmk -xelatex -cd zadani/zadani.tex
+% =========================================================
+
+\documentclass[12pt, a4paper]{article}
+
+% --- Čeština ---
+\usepackage{polyglossia}
+\setmainlanguage{czech}
+\usepackage{fontspec}
+
+% --- Okraje ---
+\usepackage[top=20mm, bottom=20mm, left=22mm, right=22mm]{geometry}
+
+% --- Matematika ---
+\usepackage{amsmath}
+
+% --- Zdrojový kód ---
+\usepackage{xcolor}
+\usepackage{listings}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codeblue}{RGB}{0,0,180}
+\definecolor{codegreen}{RGB}{0,120,0}
+\definecolor{codepurple}{RGB}{120,0,140}
+
+\lstdefinestyle{python}{
+    language=Python,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codeblue}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codepurple},
+    breaklines=true,
+    showstringspaces=false,
+    frame=single,
+    tabsize=4,
+    numbers=none,
+}
+\lstset{style=python}
+
+% --- České uvozovky ---
+\usepackage{csquotes}
+\newcommand{\uv}[1]{\enquote{#1}}
+
+% --- Rámečky pro zadání ---
+\usepackage{mdframed}
+\newmdenv[
+    linewidth=1.5pt,
+    linecolor=blue!60!black,
+    backgroundcolor=blue!3,
+    innertopmargin=10pt, innerbottommargin=10pt,
+    innerleftmargin=12pt, innerrightmargin=12pt,
+]{zadanibox}
+
+\newmdenv[
+    linewidth=1.5pt,
+    linecolor=orange!70!black,
+    backgroundcolor=orange!5,
+    innertopmargin=10pt, innerbottommargin=10pt,
+    innerleftmargin=12pt, innerrightmargin=12pt,
+]{bonusbox}
+
+% --- Hyperlinks ---
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black}
+
+% =========================================================
+\begin{document}
+% =========================================================
+
+\begin{center}
+    {\LARGE \textbf{Domácí úkol: Taylorovy řady}}\\[0.5em]
+    {\large Seminář IVT --- 3.~ročník gymnázia}\\[0.3em]
+    {\normalsize Odevzdat do týdne od hodiny (uploadem do Google Classroom)}
+\end{center}
+
+\bigskip
+\hrule
+\bigskip
+
+\section*{Cíl}
+
+Naučit se implementovat \textbf{Taylorovu řadu pro $\sin$ a $\cos$}
+a \textbf{Newtonovu iteraci pro odmocninu} v~čistém Pythonu ---
+bez použití \texttt{math.sin}, \texttt{math.cos}, \texttt{math.sqrt}
+pro samotný výpočet.
+Funkci \texttt{math} použijete jen jako \uv{správnou odpověď}
+pro porovnání.
+
+\bigskip
+
+\section*{Povinné zadání}
+
+\begin{zadanibox}
+Napište soubor \texttt{ukol.py} s~následujícími funkcemi:
+
+\begin{enumerate}
+
+    \item \textbf{\texttt{faktorial(n)}} ---
+          vypočítá $n! = 1 \cdot 2 \cdot 3 \cdots n$
+          pomocí smyčky (bez \texttt{math.factorial}).
+
+    \item \textbf{\texttt{sin\_taylor(x, n)}} ---
+          vrátí aproximaci $\sin(x)$ pomocí prvních $n$~členů řady:
+          \[
+              \sin(x) \approx
+              \sum_{k=0}^{n-1} \frac{(-1)^k\, x^{2k+1}}{(2k+1)!}
+          \]
+          Argument $x$ je v~\textbf{radiánech}.
+
+    \item \textbf{\texttt{cos\_taylor(x, n)}} ---
+          vrátí aproximaci $\cos(x)$ pomocí prvních $n$~členů řady:
+          \[
+              \cos(x) \approx
+              \sum_{k=0}^{n-1} \frac{(-1)^k\, x^{2k}}{(2k)!}
+          \]
+
+    \item \textbf{\texttt{sqrt\_newton(a, n)}} ---
+          vrátí aproximaci $\sqrt{a}$ po $n$~iteracích:
+          \[
+              x_0 = a, \qquad
+              x_{k+1} = \frac{x_k + a/x_k}{2}
+          \]
+
+\end{enumerate}
+
+\medskip
+
+\textbf{Výstup skriptu}\\
+Skript musí vytisknout tabulku porovnávající vaše hodnoty
+s~hodnotami z~\texttt{math.sin} a \texttt{math.sqrt}
+pro \textbf{alespoň tři různé vstupy} a \textbf{alespoň tři
+různé počty členů/iterací} --- viz ukázka níže.
+
+\end{zadanibox}
+
+\bigskip
+
+\subsection*{Ukázka očekávaného výstupu}
+
+\begin{lstlisting}
+x = pi/6  (30 stupnu = 0.5236 rad)
+n=1: sin_taylor = 0.523599   math.sin = 0.500000   chyba = 2.36e-02
+n=3: sin_taylor = 0.500002   math.sin = 0.500000   chyba = 2.12e-06
+n=5: sin_taylor = 0.500000   math.sin = 0.500000   chyba = 8.83e-11
+
+sqrt(2), n iteraci:
+n=1: sqrt_newton = 2.000000  math.sqrt = 1.414214  chyba = 5.86e-01
+n=3: sqrt_newton = 1.414216  math.sqrt = 1.414214  chyba = 2.12e-06
+n=5: sqrt_newton = 1.414214  math.sqrt = 1.414214  chyba = 1.59e-12
+\end{lstlisting}
+
+\bigskip
+
+\section*{Bonusová část}
+
+\begin{bonusbox}
+\textbf{Bonus A} --- Převod stupňů na radiány:
+napište funkci \texttt{deg\_to\_rad(stupne)}, která převede
+stupně na radiány pomocí $x = \mathrm{stupne} \cdot \pi / 180$,
+kde $\pi$ můžete zadat jako konstantu (\texttt{3.14159265358979}).
+
+\medskip
+
+\textbf{Bonus B} --- Graf konvergence:
+nainstalujte \texttt{matplotlib} a vykreslete graf absolutní chyby
+$|\texttt{sin\_taylor}(x, n) - \sin(x)|$ jako funkce $n$
+pro $x = \pi/6$. Osa $y$ má být logaritmická.
+
+Návod pro instalaci: \texttt{pip install matplotlib}
+\end{bonusbox}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Co je povoleno}
+
+\begin{itemize}
+    \item \texttt{import math} --- ale jen pro \texttt{math.sin},
+          \texttt{math.cos}, \texttt{math.sqrt}, \texttt{math.pi}
+          jako \emph{referenční hodnoty} pro porovnání,
+          ne pro samotný výpočet.
+    \item Libovolné cykly, podmínky, funkce.
+    \item Pro bonus B: \texttt{import matplotlib.pyplot}.
+\end{itemize}
+
+\subsection*{Hodnocení}
+
+\begin{itemize}
+    \item Povinné zadání: \textbf{8~bodů} (2 body za každou funkci)
+    \item Správný formátovaný výstup: \textbf{2~body}
+    \item Bonus A (převod stupňů): \textbf{1~bod}
+    \item Bonus B (graf): \textbf{2~body}
+\end{itemize}
+
+\end{document}

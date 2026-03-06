@@ -1,0 +1,28 @@
+# LaTeX pomocne soubory
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.nav
+*.snm
+*.vrb
+*.lof
+*.lot
+*.lol
+*-SAVE-ERROR
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# python/output/ neni ignorovano -- obrazky jsou verzovany
+Thumbs.db
