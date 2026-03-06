@@ -173,6 +173,22 @@ $|\texttt{sin\_taylor}(x, n) - \sin(x)|$ jako funkce $n$
 pro $x = \pi/6$. Osa $y$ má být logaritmická.
 
 Návod pro instalaci: \texttt{pip install matplotlib}
+
+\medskip
+
+\textbf{Bonus C} --- Identita a rychlejší konvergence:\\
+Platí $\sin(x) = \cos\!\left(\dfrac{\pi}{2} - x\right)$.
+Napište funkci \texttt{sin\_pres\_cos(x, n)}, která vypočítá $\sin(x)$
+pomocí vaší funkce \texttt{cos\_taylor} s~touto identitou.
+
+Porovnejte přesnost pro $x = 5\pi/6$ (150°) s~$n = 5$ členy:
+\begin{itemize}
+    \item \texttt{sin\_taylor(5*pi/6,~5)} --- přímý výpočet Taylorovou řadou
+    \item \texttt{sin\_pres\_cos(5*pi/6,~5)} --- výpočet přes identitu
+\end{itemize}
+Který způsob dá přesnější výsledek?
+Zamyslete se: argument $\tfrac{\pi}{2} - \tfrac{5\pi}{6} = -\tfrac{\pi}{3}$
+je menší než $\tfrac{5\pi}{6}$ --- proč to vede k lepší konvergenci?
 \end{bonusbox}
 
 \bigskip
@@ -197,6 +213,7 @@ Návod pro instalaci: \texttt{pip install matplotlib}
     \item Správný formátovaný výstup: \textbf{2~body}
     \item Bonus A (převod stupňů): \textbf{1~bod}
     \item Bonus B (graf): \textbf{2~body}
+    \item Bonus C (identita): \textbf{2~body}
 \end{itemize}
 
 \end{document}
